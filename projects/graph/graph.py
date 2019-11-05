@@ -125,7 +125,9 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        s = Stack()
+        s.push([starting_vertex])
+        
 
 
 # def bft(self, starting_vertex_id):
