@@ -118,7 +118,26 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        q = Queue()
+        q.enqueue([starting_vertex])
+
+        visited = set()
+
+        while q.size() > 0:
+            print(f"queue is: {q.queue}")
+            path = q.dequeue()
+            v = path[-1]
+            
+            if v not in visited:
+                if v == destination_vertex:
+                    return path
+                visited.add(v)
+
+                for neighbor in self.vertices[v]:
+                    path_copy = path.copy()
+                    path_copy.append(neighbor)
+                    q.enqueue(path_copy)
+
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
@@ -128,7 +147,20 @@ class Graph:
         s = Stack()
         s.push([starting_vertex])
         
+        visited = set()
 
+        while s.size() > 0:
+            path = s.pop()
+            v = path[-1]
+
+            if v == destination_vertex:
+                return path
+            visited.add(v)
+
+            for neighbor in self.vertices[v]:
+                path_copy = path.copy()
+                path_copy.append(neighbor)
+                s.push(path_copy)
 
 # def bft(self, starting_vertex_id):
 #     # Create an empty queue and enqueue the starting vertex ID
@@ -139,6 +171,8 @@ class Graph:
 #             # Mark it as visited...
 #             # Then add all of its neighbors to the back of the queue
 
+#bft requires a queue
+#dft is procedural / recursive and generates stack
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
