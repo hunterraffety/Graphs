@@ -34,6 +34,8 @@ class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
+        self.visited = set()
+
     def add_vertex(self, vertex):
         """
         Add a vertex to the graph.
@@ -101,7 +103,15 @@ class Graph:
         beginning from starting_vertex.
         This should be done using recursion.
         """
-        pass  # TODO
+        v = starting_vertex
+        #compared v against visited set, if not in, adds
+        if v not in self.visited:
+            self.visited.add(v)
+            print(f"v: {v}")
+            #looks at adjacent edges and recursively executes dfg_recursive upon it so add if not present
+            for neighbor in self.vertices:
+                self.dft_recursive(neighbor)
+        
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
