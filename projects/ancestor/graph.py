@@ -107,7 +107,7 @@ class Graph:
         #compared v against visited set, if not in, adds
         if v not in self.visited:
             self.visited.add(v)
-            print(f"v: {v}")
+            print(v)
             #looks at adjacent edges and recursively executes dfg_recursive upon it so add if not present
             for neighbor in self.vertices:
                 self.dft_recursive(neighbor)
@@ -124,7 +124,7 @@ class Graph:
         visited = set()
 
         while q.size() > 0:
-            print(f"queue is: {q.queue}")
+            print(q.queue)
             path = q.dequeue()
             v = path[-1]
             

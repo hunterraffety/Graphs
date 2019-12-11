@@ -6,7 +6,7 @@ def earliest_ancestor(ancestors, starting_node):
 	graph = Graph()
 
 	# let's see what we have:
-	print(f"starting node: {starting_node}")
+	print(starting_node)
 	for i in ancestors:
 		print(i)
 
