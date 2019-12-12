@@ -90,23 +90,27 @@ class SocialGraph:
         q = Queue()
         q.enqueue([user_id])
         while q.size() > 0:
-            p = q.dequeue()
-            print(f"p: {p}")
-            v = p[-1]
-            if v not in visited:
-                print(f"v: {v}")
-                visited[v] = p
-            for i in self.friendships[v]:
-                if i not in visited:
-                    new_path = list(p)
-                    new_path.append(i)
-                    q.enqueue(new_path)
+            path = q.dequeue()
+            print(f"path: {path}")
+            u = path[-1]
+            if u not in visited:
+                print(f"u: {u}")
+                visited[u] = path
+                for friend in self.friendships[u]:
+                    path_copy = path.copy()
+                    path_copy.append(friend)
+                    q.enqueue(path_copy)
+                    # if i not in visited:
+                    #     new_path = list(p)
+                    #     new_path.append(i)
+                    #     q.enqueue(new_path)
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(10, 2)
+    sg.populate_graph(100, 20)
     print(f"sg.friendships: {sg.friendships}")
+    print(f"sg.users, {sg.users}")
     connections = sg.get_all_social_paths(1)
     print(f"connections: {connections}")
