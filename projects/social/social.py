@@ -16,6 +16,8 @@ class Queue():
 class User:
     def __init__(self, name):
         self.name = name
+    def __repr__(self):
+        return self.name
 
 class SocialGraph:
     def __init__(self):
@@ -91,7 +93,7 @@ class SocialGraph:
         q.enqueue([user_id])
         while q.size() > 0:
             path = q.dequeue()
-            print(f"path: {path}")
+            # print(f"path: {path}")
             u = path[-1]
             if u not in visited:
                 print(f"u: {u}")
@@ -114,3 +116,6 @@ if __name__ == '__main__':
     print(f"sg.users, {sg.users}")
     connections = sg.get_all_social_paths(1)
     print(f"connections: {connections}")
+    print(f"Proportion of friends: {len(connections) / len(sg.users)}")
+    lines = [len(x) for x in connections.values()]
+    print(f"Average degree of separation: {sum(lines) / len(lines)}")
