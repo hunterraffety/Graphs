@@ -1,5 +1,18 @@
 import random
 
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -30,7 +43,7 @@ class SocialGraph:
         self.users[self.last_id] = User(name)
         self.friendships[self.last_id] = set()
 
-    def populate_graph(self, numUsers, avgFriendships):
+    def populate_graph(self, num_users, avg_friendships):
         """
         Takes a number of users and an average number of friendships
         as arguments
@@ -45,7 +58,7 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
-        for i in range(numUsers):
+        for i in range(num_users):
             self.add_user(f"user {i + 1}")
         # Create friendships
         # total_friendships = avg_friendship * num_users
@@ -59,9 +72,9 @@ class SocialGraph:
         # shuffle the list
         random.shuffle(possible_friendships)
 
-        print(possible_friendships)
+        print(f"possible_friendships: {possible_friendships}")
 
-        for i in range(numUsers * avgFriendships // 2):
+        for i in range(num_users * avg_friendships // 2):
             friendship = possible_friendships[i]
             self.add_friendship(friendship[0], friendship[1])
 
@@ -74,12 +87,26 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        q = Queue()
+        q.enqueue([user_id])
+        while q.size() > 0:
+            p = q.dequeue()
+            print(f"p: {p}")
+            v = p[-1]
+            if v not in visited:
+                print(f"v: {v}")
+                visited[v] = p
+            for i in self.friendships[v]:
+                if i not in visited:
+                    new_path = list(p)
+                    new_path.append(i)
+                    q.enqueue(new_path)
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.friendships)
+    print(f"sg.friendships: {sg.friendships}")
     connections = sg.get_all_social_paths(1)
-    print(connections)
+    print(f"connections: {connections}")
